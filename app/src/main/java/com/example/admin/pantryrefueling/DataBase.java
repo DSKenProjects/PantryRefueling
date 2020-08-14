@@ -19,7 +19,6 @@ public class DataBase extends SQLiteOpenHelper {
     private static final String COLUMN_EMAIL = "email";
     private static final String COLUMN_FIRSTNAME = "firstname";
     private static final String COLUMN_LASTNAME = "lastname";
-    private static final String COLUMN_ROLE = "role";
 
     //*******************************
     //Variables de la table Products
@@ -31,16 +30,21 @@ public class DataBase extends SQLiteOpenHelper {
     private static final String COLUMN_QUANTITY = "quantity";
 
     //*******************************
-    //Variables de la table Categories
+    //Variables de la table ProvisionList
     //*******************************
-    private static final String TABLE_CATEGORIES = "Categories";
-    private static final String COLUMN_IDCATEGORY = "idCategory";
-    private static final String COLUMN_CATEGORY_NAME = "categoryName";
-
+    private static final String TABLE_PROVISION_LIST = "ProvisionList";
+    private static final String COLUMN_ID_PRODUCT_PL = "idProduct";
 
     //*******************************
-    //Variables de la table Categories
+    //Variables de la table UserStatistics
     //*******************************
+    private static final String TABLE_USER_STATISTICS = "UserStatistics";
+    private static final String COLUMN_USERNAME_ST = "userName";
+    private static final String COLUMN_CURRENT_PURCHASE_AMOUNT = "currentPurchaseAmount";
+    private static final String COLUMN_LAST_PURCHASE_AMOUNT = "lastPurchaseAmount";
+    private static final String COLUMN_TOTAL_PURCHASE_AMOUNT = "totalPurchaseAmount";
+
+
 
     public DataBase( Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -49,6 +53,35 @@ public class DataBase extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
+        // SQL QUERY TO CREATE TABLE USERS
+        String CREATE_TABLE_USERS = "CREATE TABLE " + TABLE_USERS + "("
+                +COLUMN_USERNAME + "TEXT PRIMARY KEY,"
+                + COLUMN_PASSWORD + "TEXT,"
+                + COLUMN_EMAIL + "TEXT,"
+                + COLUMN_FIRSTNAME + "TEXT,"
+                + COLUMN_LASTNAME +"TEXT )";
+        db.execSQL(CREATE_TABLE_USERS);
+
+        // SQL QUERY TO CREATE TABLE PRODUCTS
+        String CREATE_TABLE_PRODUCTS = "CREATE TABLE " + TABLE_PRODUCTS + "("
+                +COLUMN_IDPRODUCT+ "TEXT PRIMARY KEY,"
+                + COLUMN_PRODUCT_NAME + "TEXT,"
+                + COLUMN_CATEGORY + "TEXT,"
+                + COLUMN_QUANTITY +"TEXT )";
+        db.execSQL(CREATE_TABLE_PRODUCTS);
+
+        // SQL QUERY TO CREATE TABLE PROVISON_LIST
+        String CREATE_TABLE_PROVISONLIST = "CREATE TABLE " + TABLE_PROVISION_LIST + "("
+                +COLUMN_ID_PRODUCT_PL+ "TEXT PRIMARY KEY)";
+        db.execSQL(CREATE_TABLE_PROVISONLIST);
+
+        // SQL QUERY TO CREATE TABLE USER_STATISTICS
+        String CREATE_TABLE_USER_STATISTICS = "CREATE TABLE " + TABLE_USER_STATISTICS+ "("
+                +COLUMN_USERNAME_ST+ "TEXT PRIMARY KEY,"
+                + COLUMN_CURRENT_PURCHASE_AMOUNT + "INTEGER,"
+                + COLUMN_LAST_PURCHASE_AMOUNT +"INTEGER,"
+                +COLUMN_TOTAL_PURCHASE_AMOUNT +"INTEGER )";
+        db.execSQL(CREATE_TABLE_USER_STATISTICS);
     }
 
     @Override
